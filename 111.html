@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《问道》1.77浮生答案实时搜索</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        :root {
+            --primary: #3498db;
+            --secondary: #e74c3c;
+            --dark: #1a1a2e;
+            --darker: #0d0d1a;
+            --light: #f8f9fa;
+            --accent: #9c27b0;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --card-bg: rgba(30, 30, 46, 0.7);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --neon-blue: #00c6ff;
+            --neon-pink: #ff00ea;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--light);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(52, 152, 219, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(231, 76, 60, 0.15) 0%, transparent 40%);
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(156, 39, 176, 0.2);
+            position: relative;
+            overflow: hidden;
+            margin-top: 40px;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+            border-radius: 16px 16px 0 0;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #ff7e5f, #feb47b, #ffcc70, #76daff, #ba8bff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+        
+        .subtitle {
+            color: #aaa;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 20px;
+            line-height: 1.5;
+        }
+        
+        .search-box {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+            font-size: 1.2rem;
+        }
+        
+        input {
+            width: 100%;
+            padding: 16px 20px 16px 50px;
+            border-radius: 50px;
+            border: 2px solid transparent;
+            background: var(--glass-bg);
+            color: var(--light);
+            font-size: 1.1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        input:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 198, 255, 0.4);
+        }
+        
+        input::placeholder {
+            color: #777;
+        }
+        
+        .result-box {
+            background: var(--glass-bg);
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 300px;
+            border: 1px solid var(--glass-border);
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px 15px;
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 15px;
+            color: #bbb;
+            font-size: 0.95rem;
+        }
+        
+        .results-container {
+            display: grid;
+            gap: 12px;
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.4s ease-out;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            border-left: 3px solid var(--neon-blue);
+        }
+        
+        .result-item:hover {
+            transform: translateY(-3px);
+            background: rgba(52, 152, 219, 0.15);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .role-name {
+            font-weight: 600;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+        
+        .highlight {
+            background-color: rgba(255, 255, 0, 0.3);
+            color: #ffeb3b;
+            padding: 0 3px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .answer {
+            font-size: 1.3rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, #00c9ff, #92fe9d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            min-width: 50px;
+            text-align: center;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #777;
+            font-size: 1.1rem;
+        }
+        
+        .note {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 3px solid var(--secondary);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+            font-size: 0.95rem;
+            color: #ddd;
+        }
+        
+        .note i {
+            margin-right: 8px;
+            color: var(--secondary);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer a {
+            color: var(--neon-blue);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer a:hover {
+            color: var(--neon-pink);
+            text-decoration: underline;
+        }
+        
+        .counter {
+            background: var(--glass-bg);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+            }
+            to {
+                text-shadow: 
+                    0 0 10px rgba(255, 126, 95, 0.6),
+                    0 0 20px rgba(254, 180, 123, 0.4),
+                    0 0 30px rgba(255, 204, 112, 0.3);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .logo {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark);
+            padding: 5px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            color: var(--neon-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .logo i {
+            color: var(--neon-pink);
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            input {
+                padding: 14px 14px 14px 45px;
+                font-size: 1rem;
+            }
+            
+            .result-item {
+                padding: 12px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .answer {
+                align-self: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container"> 
+        <div class="header">
+            <h1>浮生问答实时搜索</h1>
+            <p class="subtitle">输入角色名称中的部分文字，实时获取浮生问答的正确答案，助你轻松完成游戏任务</p>
+        </div>
+        
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="输入角色名称中的任意文字（如：喵、童、精）">
+        </div>
+        
+        <div class="result-box">
+            <div class="results-header">
+                <span>角色名称</span>
+                <span>答案</span>
+            </div>
+            <div class="results-container" id="resultContainer">
+                <p class="no-results"><i class="fas fa-info-circle"></i> 请输入角色名称中的任意文字开始搜索</p>
+            </div>
+        </div>
+        
+        <div class="note">
+            <i class="fas fa-lightbulb"></i> 提示：输入文字后，系统会自动显示包含该文字的所有角色答案。支持模糊搜索，不区分大小写。
+        </div>
+        
+        <div class="footer">
+            <p>数据来源：喵咪先生 | 版本：1.77 | 牛子制作永久免费</p>
+            <span class="counter">角色总数: <span id="totalCount">88</span></span>
+        </div>
+    </div>
+
+    <script>
+        // 浮生答案数据集
+        const answerData = [
+            { role: "阿依舍", answer: "11" },
+            { role: "敖(áo)栾", answer: "21" },
+            { role: "毕方长老", answer: "21" },
+            { role: "碧玉童子", answer: "11" },
+            { role: "白骨精", answer: "12" },
+            { role: "冰媚儿", answer: "21" },
+            { role: "冰夷", answer: "12" },
+            { role: "赤精子", answer: "11" },
+            { role: "刺猬猬怪", answer: "11" },
+            { role: "赤霞童子", answer: "11" },
+            { role: "彩云童子", answer: "12" },
+            { role: "蚩蚩尤（chī）", answer: "21" },
+            { role: "重黎", answer: "21" },
+            { role: "东皇太一", answer: "21" },
+            { role: "大王子", answer: "11" },
+            { role: "地烈阵主", answer: "11" },
+            { role: "多闻道人", answer: "12" },
+            { role: "大将军", answer: "22" },
+            { role: "东海龙女", answer: "22" },
+            { role: "东海龙王", answer: "11" },
+            { role: "地藏王", answer: "11" },
+            { role: "帝辛", answer: "12" },
+            { role: "方大刚", answer: "11" },
+            { role: "费仲", answer: "12" },
+            { role: "肥遗", answer: "12" },
+            { role: "风吼阵主", answer: "12" },
+            { role: "蛊雕", answer: "11" },
+            { role: "高兰英", answer: "12" },
+            { role: "钩蛇", answer: "11" },
+            { role: "龟丞相", answer: "22" },
+            { role: "黄风童子", answer: "21" },
+            { role: "扈九", answer: "22" },
+            { role: "红砂阵主", answer: "12" },
+            { role: "憾地魔", answer: "12" },
+            { role: "红水阵主", answer: "22" },
+            { role: "黑山老妖", answer: "12" },
+            { role: "横公鱼", answer: "12" },
+            { role: "何罗", answer: "22" },
+            { role: "虎鲛鲛", answer: "12" },
+            { role: "化血阵主", answer: "12" },
+            { role: "寒冰阵主", answer: "12" },
+            { role: "精卫", answer: "11" },
+            { role: "菊娘子", answer: "22" },
+            { role: "金角大仙", answer: "12" },
+            { role: "惧留孙", answer: "12" },
+            { role: "静琪", answer: "12" },
+            { role: "金光阵主", answer: "22" },
+            { role: "金光仙", answer: "22" },
+            { role: "鲸鲲", answer: "21" },
+            { role: "鲛鲛人（jiāo）", answer: "21" },
+            { role: "计蒙", answer: "12" },
+            { role: "接引道人", answer: "21" },
+            { role: "无当圣母", answer: "11" },
+            { role: "无想僧", answer: "11" },
+            { role: "无念僧", answer: "11" },
+            { role: "武德星君", answer: "11" },
+            { role: "乌云仙", answer: "12" },
+            { role: "文殊天尊", answer: "21" },
+            { role: "韦护", answer: "22" },
+            { role: "玄都法师", answer: "11" },
+            { role: "西域国王", answer: "11" },
+            { role: "小王子", answer: "11" },
+            { role: "萧臻", answer: "11" },
+            { role: "巡游仙将", answer: "11" },
+            { role: "熊怪", answer: "11" },
+            { role: "香菱", answer: "11" },
+            { role: "许飞琼", answer: "12" },
+            { role: "夏总兵", answer: "12" },
+            { role: "薛统领", answer: "22" },
+            { role: "云霄童子", answer: "11" },
+            { role: "尹喜", answer: "11" },
+            { role: "尤浑", answer: "11" },
+            { role: "怨灵鬼将", answer: "12" },
+            { role: "杨镖头", answer: "12" },
+            { role: "鱼怪", answer: "12" },
+            { role: "阴圣", answer: "21" },
+            { role: "阳圣", answer: "21" },
+            { role: "芸熙", answer: "22" },
+            { role: "魇魇魅（yǎn）", answer: "12" },
+            { role: "云傲天", answer: "22" },
+            { role: "云中子", answer: "22" },
+            { role: "妖狼王", answer: "12" },
+            { role: "佑圣真君", answer: "12" },
+            { role: "翊圣真君", answer: "21" },
+            { role: "掌令使", answer: "11" },
+            { role: "张奎", answer: "12" },
+            { role: "猪婆龙", answer: "11" },
+            { role: "蜘蛛精", answer: "21" },
+            { role: "朱厌", answer: "22" },
+            { role: "诸健", answer: "21" },
+            { role: "紫霞真人", answer: "21" },
+            { role: "芝仙", answer: "21" },
+            { role: "准提道人", answer: "12" }
+        ];
+        
+        // 显示角色总数
+        document.getElementById('totalCount').textContent = answerData.length;
+
+        // 搜索功能
+        function searchAnswer() {
+            const input = document.getElementById('searchInput').value.trim().toLowerCase();
+            const resultContainer = document.getElementById('resultContainer');
+            
+            if (!input) {
+                resultContainer.innerHTML = '<p class="no-results"><i class="fas fa-info-circle"></i> 请输入角色名称中的任意文字开始搜索</p>';
+                return;
+            }
+            
+            // 过滤匹配的角色
+            const results = answerData.filter(item => 
+                item.role.toLowerCase().includes(input)
+            );
+            
+            if (results.length > 0) {
+                let html = '';
+                results.forEach(item => {
+                    // 高亮匹配的字母
+                    const roleLower = item.role.toLowerCase();
+                    const startIndex = roleLower.indexOf(input);
+                    const before = item.role.substring(0, startIndex);
+                    const match = item.role.substring(startIndex, startIndex + input.length);
+                    const after = item.role.substring(startIndex + input.length);
+                    
+                    html += `<div class="result-item">
+                        <span class="role-name">${before}<span class="highlight">${match}</span>${after}</span>
+                        <span class="answer">${item.answer}</span>
+                    </div>`;
+                });
+                resultContainer.innerHTML = html;
+            } else {
+                resultContainer.innerHTML = '<p class="no-results"><i class="fas fa-exclamation-triangle"></i> 未找到包含该文字的角色，请尝试其他文字</p>';
+            }
+        }
+
+        // 实时搜索
+        document.getElementById('searchInput').addEventListener('input', searchAnswer);
+        
+        // 初始显示热门角色
+        function showPopularRoles() {
+            const resultContainer = document.getElementById('resultContainer');
+            const popularRoles = answerData.slice(0, 5);
+            
+            let html = '';
+            popularRoles.forEach(item => {
+                html += `<div class="result-item">
+                    <span class="role-name">${item.role}</span>
+                    <span class="answer">${item.answer}</span>
+                </div>`;
+            });
+            
+            resultContainer.innerHTML = `
+                <div style="margin-bottom: 15px; color: #aaa; font-size: 0.95rem; padding: 0 10px;">
+                    热门角色推荐：
+                </div>
+                ${html}
+                <div style="text-align: center; margin-top: 20px; color: #777;">
+                    <i class="fas fa-arrow-up"></i> 在搜索框中输入文字获取更多结果
+                </div>
+            `;
+        }
+        
+        // 页面加载时显示热门角色
+        window.onload = showPopularRoles;
+    </script>
+</body>
+</html>
