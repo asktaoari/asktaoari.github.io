@@ -1,0 +1,1624 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Untitled | 喵咪先生</title><noscript>开启JavaScript才能访问本站哦~</noscript><link rel="icon" href="/img/pwa/favicon.png"><link rel="stylesheet" href="/css/index.css?v=3.0.20"><link rel="canonical" href="http://miaomi.vip/ask.html"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"><!-- Feature-specific CSS--><!-- aplayer--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"><!-- swiper--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.0.5/swiper-bundle.min.css"><!-- fancybox ui--><!-- katex--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"><!-- Open Graph--><meta name="description" content="问题答案查询系统（支持连续拼音） tailwind.config &amp;#x3D; { theme: { extend: { colors: { primary: &amp;#39;#3B82F6"><!-- pwa--><meta name="theme-color" content="#006a73"><meta name="apple-mobile-web-app-status-bar-style" content="#006a73"><link rel="manifest" href="/manifest.json"><meta name="msapplication-TileColor" content="#006a73"><link rel="mask-icon" href="/img/pwa/favicon.png" color="#006a73"><link rel="apple-touch-icon" sizes="180x180" href="/img/pwa/favicon.png"><link rel="icon" type="image/png" sizes="16x16" href="/img/pwa/favicon_16.png"><link rel="icon" type="image/png" sizes="32x32" href="/img/pwa/favicon_32.png"><link rel="bookmark" href="/img/pwa/favicon.png"><script>console.log(' %c Solitude %c ' + '3.0.20' + ' %c https://github.com/everfu/hexo-theme-solitude',
+    'background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
+    'background:#ff9a9a ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff',
+    'background:unset ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff')
+</script><script>(()=>{
+        const saveToLocal = {
+            set: function setWithExpiry(key, value, ttl) {
+                if (ttl === 0)
+                    return
+                const now = new Date()
+                const expiryDay = ttl * 86400000
+                const item = {
+                    value: value,
+                    expiry: now.getTime() + expiryDay
+                }
+                localStorage.setItem(key, JSON.stringify(item))
+            },
+            get: function getWithExpiry(key) {
+                const itemStr = localStorage.getItem(key)
+
+                if (!itemStr) {
+                    return undefined
+                }
+                const item = JSON.parse(itemStr)
+                const now = new Date()
+
+                if (now.getTime() > item.expiry) {
+                    localStorage.removeItem(key)
+                    return undefined
+                }
+                return item.value
+            }
+        };
+        window.utils = {
+            saveToLocal: saveToLocal,
+            getCSS: (url, id = false) => new Promise((resolve, reject) => {
+              const link = document.createElement('link')
+              link.rel = 'stylesheet'
+              link.href = url
+              if (id) link.id = id
+              link.onerror = reject
+              link.onload = link.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                link.onload = link.onreadystatechange = null
+                resolve()
+              }
+              document.head.appendChild(link)
+            }),
+            getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+              const script = document.createElement('script')
+              script.src = url
+              script.async = true
+              script.onerror = reject
+              script.onload = script.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                script.onload = script.onreadystatechange = null
+                resolve()
+              }
+
+              Object.keys(attr).forEach(key => {
+                script.setAttribute(key, attr[key])
+              })
+
+              document.head.appendChild(script)
+            }),
+            addGlobalFn: (key, fn, name = false, parent = window) => {
+                const globalFn = parent.globalFn || {}
+                const keyObj = globalFn[key] || {}
+
+                if (name && keyObj[name]) return
+
+                name = name || Object.keys(keyObj).length
+                keyObj[name] = fn
+                globalFn[key] = keyObj
+                parent.globalFn = globalFn
+            },
+            addEventListenerPjax: (ele, event, fn, option = false) => {
+              ele.addEventListener(event, fn, option)
+              utils.addGlobalFn('pjax', () => {
+                  ele.removeEventListener(event, fn, option)
+              })
+            },
+            diffDateFormat: (selector) => {
+                selector.forEach(item => {
+                    const date = new Date(item.getAttribute('datetime') || item.textContent);
+                    item.textContent = (date.getMonth() + 1).toString()+'/'+date.getDate().toString();
+                });
+            },
+        }
+    })()</script><!-- theme--><script>initTheme = () => {
+    let isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const cachedMode = utils.saveToLocal.get('theme');
+    if (cachedMode === undefined) {
+        const nowMode =
+            isDarkMode ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', nowMode);
+    } else {
+        document.documentElement.setAttribute('data-theme', cachedMode);
+    }
+    typeof rm === 'object' && rm.mode(cachedMode === 'dark' && isDarkMode)
+}
+initTheme()</script><script>const GLOBAL_CONFIG = {
+    root: '/',
+    algolia: undefined,
+    localsearch: undefined,
+    runtime: '2023-04-20 00:00:00',
+    lazyload: {
+        enable: false,
+        error: '/img/error_load.avif'
+    },
+    copyright: false,
+    highlight: {"limit":200,"expand":true,"copy":true,"syntax":"highlight.js"},
+    randomlink: false,
+    lang: {"theme":{"dark":"已切换至深色模式","light":"已切换至浅色模式"},"copy":{"success":"复制成功","error":"复制失败"},"backtop":"返回顶部","time":{"day":"天前","hour":"小时前","just":"刚刚","min":"分钟前","month":"个月前"},"day":" 天","f12":"开发者模式已打开，请遵循GPL协议。","totalk":"无需删除空行，直接输入评论即可","barrage":{"title":"热评"}},
+    aside: {
+        state: {
+            morning: "✨ 早上好，新的一天开始了",
+            noon: "🍲 午餐时间",
+            afternoon: "🌞 下午好",
+            night: "早点休息",
+            goodnight: "晚安 😴",
+        },
+        witty_words: ["😄我要当拖。","😠给我出货。","👏老头杀手。"],
+        witty_comment: {
+            prefix: '好久不见，',
+            back: '欢迎再次回来，',
+        },
+    },
+    covercolor: {
+        enable: false
+    },
+    comment: {"avatar":"https://gravatar.com/avatar","commentBarrage":true},
+    lightbox: 'null',
+    right_menu: {"mode":{"dark":"深色模式","light":"浅色模式"},"img_error":"此图片无法复制与下载","music":{"start":"播放音乐","stop":"暂停音乐"},"barrage":{"open":"显示热评","close":"关闭热评"},"translate":true,"ctrlOriginalMenu":"按住Ctrl+右键可打开浏览器右键菜单"},
+    translate: {"translateDelay":0,"defaultEncoding":2},
+    lure: false,
+    expire: false,
+};</script><script id="config-diff">var PAGE_CONFIG = {
+    is_post: false,
+    is_page: true,
+    is_home: false,
+    page: '',
+    toc: false,
+    comment: true,
+    ai_text: false,
+    color: false,
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body id="body"><div><div id="loading-box" onclick="preloader.endLoading();" style="zoom:1"><div class="loading-bg"><img class="loading-img nolazyload" src="https://bu.dusays.com/2025/09/03/68b805a2a4079.png" alt="loading image"></div></div><script>const preloader = {
+    isLoaded: false,
+    endLoading: () => {
+        if (!preloader.isLoaded) {
+            document.getElementById('loading-box').classList.add('loaded');
+            preloader.isLoaded = true;
+            preloader.togglePaceDone();
+        }
+    },
+    initLoading: () => {
+        document.getElementById('loading-box').classList.remove('loaded');
+        preloader.isLoaded = false;
+        preloader.togglePaceDone();
+    },
+    togglePaceDone: () => {
+        document.getElementById('body').className = preloader.isLoaded ? 'pace-done' : '';
+    }
+}
+
+window.addEventListener('load', () => {
+    preloader.endLoading();
+});
+
+window.addEventListener('pjax:send', () => {
+    preloader.initLoading();
+});
+
+document.addEventListener('pjax:complete', () => {
+    preloader.endLoading();
+});
+
+setTimeout(() => {
+    preloader.endLoading();
+}, 5000);</script></div><div><div id="console"><div class="close-btn" onclick="sco.hideConsole()"><i class="solitude fas fa-xmark"></i></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments" onclick="sco.hideConsole()"><div class="card-content"><div class="author-content-item-tips">互动</div><div class="author-content-item-title">最新评论<a class="recent-comment-more" href="/recentcomments/" title="最近评论"><i class="solitude fas fa-circle-chevron-right"></i></a></div></div><div class="console_recentcomments"><script pjax>(async () => {
+    document.querySelector('.console-card .console_recentcomments').textContent = `加载中...`
+    const emojiReg = /<img class="tk-owo-emotion" [^>]+>/g
+    let cache = utils.saveToLocal.get('twikoo-recent-comments-console')
+    if (cache) {
+        setHtml(document.querySelector('.console-card .console_recentcomments'), cache)
+        return
+    }
+    let ls = []
+
+    await fetch('https://twikoo.miaomi.vip', {
+        method: "POST",
+        body: JSON.stringify({
+            "event": "GET_RECENT_COMMENTS",
+            "includeReply": true,
+            "pageSize": 6
+        }),
+        headers: {'Content-Type': 'application/json'}
+    }).then(res => res.json()).then(async ({data}) => {
+        for (const i of data) {
+            if (i.avatar === undefined) i.avatar = 'https://gravatar.com/avatar/avatar/d615d5793929e8c7d70eab5f00f7f5f1?d=mp'
+            let title = ''
+            if (i.url) {
+                await fetch(i.url).then(res => res.text()).then(html => {
+                    const parser = new DOMParser()
+                    const doc = parser.parseFromString(html, 'text/html')
+                    title = doc.querySelector('title').innerText
+                }).catch(() => {
+                    title = i.url
+                })
+            }
+            if (title.indexOf('|') > 0) {
+                title = title.split('|')[0]
+            }
+            ls.push({
+                avatar: i.avatar,
+                nick: i.nick,
+                title: title,
+                content: i.comment,
+                url: i.url + '#' + i.id,
+                time: i.created
+            })
+        }
+        setHtml(document.querySelector('.console-card .console_recentcomments'), ls)
+        utils.saveToLocal.set('twikoo-recent-comments-console', ls, 0.2)
+    });
+
+    function setHtml(el, data) {
+        el.innerHTML = data.length !== 0 ? data.map(i => `
+            <div class="comment-card" title="${i.title}" onclick="pjax.loadUrl('${i.url}')">
+                <div class="comment-info">
+                    <img src="${i.avatar}" class="nolazyload" alt="${i.nick}">
+                    <div>
+                        <span class="comment-user">${i.nick}</span>
+                    </div>
+                    <time class="comment-time" datetime="${new Date(i.time)}"></time>
+                </div>
+                <div class="comment-content">${formatContent(i.content)}</div>
+                <div class="comment-title">
+                <i class="solitude fas fa-comment"></i>
+                ${i.title}</div>
+            </div>
+        `).join('') : `暂无评论...`
+        if (typeof utils !== 'undefined') utils.diffDateFormat(document.querySelectorAll('.comment-time'))
+        else {
+            document.addEventListener('pjax:complete', () => utils.diffDateFormat(document.querySelectorAll('.comment-time')))
+            document.addEventListener('DOMContentLoaded', () => utils.diffDateFormat(document.querySelectorAll('.comment-time')))
+        }
+    }
+
+    function formatContent(content) {
+        content = content.replace(emojiReg, '表情')
+        content = content.replace(/<\/*br>|[\s\uFEFF\xA0]+/g, '');
+        content = content.replace(/<img.*?>/g, '[图片]');
+        content = content.replace(/<a.*?>.*?<\/a>/g, '[链接]');
+        content = content.replace(/<pre.*?>.*?<\/pre>/g, '[代码]');
+        content = content.replace(/<.*?>/g, '');
+        return content
+    }
+})()</script></div></div></div><div class="console-card-group-right"><div class="console-card tags" onclick="sco.hideConsole()"><div class="card-content"><div class="author-content-item-tips">标签</div><div class="author-content-item-title">寻找感兴趣的领域</div></div><div class="card-tag-cloud"><a href="/tags/%E5%B0%8F%E5%8F%B7%E6%97%A5%E5%B8%B8/">小号日常<sup>8</sup></a><a href="/tags/%E6%9C%AC%E5%91%BD%E6%B3%95%E5%AE%9D/">本命法宝<sup>1</sup></a><a href="/tags/%E8%BD%AC%E7%94%9F%E6%8A%80%E8%83%BD/">转生技能<sup>1</sup></a></div></div><div class="console-card history" onclick="sco.hideConsole()"><ul class="card-archive-list"><li class="item"><a href="/archives/2025/07/"><span class="date">2025/07</span><div class="count-group"><span class="count">10</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/"><span class="date">全部文章</span><div class="count-group"><span class="count">10</span><span class="unit">篇</span></div></a></li></ul></div></div></div><div class="button-group"><div class="console-btn-item"><span class="darkmode_switchbutton" onclick="sco.switchDarkMode()" title="昼夜切换"><i class="solitude fas fa-circle-half-stroke"></i></span></div><div class="console-btn-item" id="consoleHideAside"><span class="asideSwitch" onclick="sco.switchHideAside()" title="边栏显示控制"><i class="solitude fas fa-arrows-left-right-to-line"></i></span></div><div class="console-btn-item" id="consoleMusic" onclick="sco.musicToggle()"><span class="music-switch" title="音乐开关"><i class="solitude fas fa-compact-disc"></i></span></div><div class="console-btn-item on" id="consoleCommentBarrage" onclick="sco.switchCommentBarrage()"><span class="commentBarrage"><i class="solitude fas fa-comment"></i></span></div></div><div class="console-mask" onclick="sco.hideConsole()"></div></div></div><div id="sidebar" style="zoom: 1;"><div id="menu-mask" style="display: none;"></div><div id="sidebar-menus"><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a></div></div></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><span class="darkmode_switchbutton menu-child" onclick="sco.switchDarkMode()"><i class="solitude fas fa-circle-half-stroke"></i><span>显示模式</span></span></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">project</div><div class="back-menu-list"><a class="back-menu-item" href="/ask.html" title="浮生问答"><img class="nolazyload back-menu-item-icon" src="https://bu.dusays.com/2025/09/03/68b805a2a4079.png" alt="浮生问答"><span class="back-menu-item-text">浮生问答</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>文章</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="solitude  fas fa-folder-closed"></i><span>归档</span></a></li><li><a class="site-page child" href="/categories/"><i class="solitude  fas fa-clone"></i><span>分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  fas fa-tags"></i><span>标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>友链</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/links/"><i class="solitude  fas fa-user-group"></i><span>友情链接</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>我的</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="solitude  fas fa-user"></i><span>关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="solitude  fas fa-laptop"></i><span>画廊</span></a></li><li><a class="site-page child" href="/music/"><i class="solitude  fas fa-music"></i><span>音乐馆</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="card-tag-cloud"><a href="/tags/%E5%B0%8F%E5%8F%B7%E6%97%A5%E5%B8%B8/">小号日常<sup>8</sup></a><a href="/tags/%E6%9C%AC%E5%91%BD%E6%B3%95%E5%AE%9D/">本命法宝<sup>1</sup></a><a href="/tags/%E8%BD%AC%E7%94%9F%E6%8A%80%E8%83%BD/">转生技能<sup>1</sup></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-top-img" id="page-header"><nav class="show" id="nav"><div id="nav-group"><div id="blog_name"><div><div class="back-home-button" tabindex="-1"><i class="solitude fas fa-bars-progress"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">project</div><div class="back-menu-list"><a class="back-menu-item" href="/ask.html" title="浮生问答"><img class="nolazyload back-menu-item-icon" src="https://bu.dusays.com/2025/09/03/68b805a2a4079.png" alt="浮生问答"><span class="back-menu-item-text">浮生问答</span></a></div></div></div></div></div><a href="/" title="返回博客主页" id="site-name"><span class="title">喵咪先生</span><i class="solitude fas fa-home"></i></a></div><div id="page-name-mask"><div id="page-name"><a id="page-name-text" onclick="sco.toTop()">Untitled</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>文章</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="solitude  fas fa-folder-closed"></i><span>归档</span></a></li><li><a class="site-page child" href="/categories/"><i class="solitude  fas fa-clone"></i><span>分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  fas fa-tags"></i><span>标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>友链</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/links/"><i class="solitude  fas fa-user-group"></i><span>友情链接</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>我的</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/about/"><i class="solitude  fas fa-user"></i><span>关于</span></a></li><li><a class="site-page child" href="/gallery/"><i class="solitude  fas fa-laptop"></i><span>画廊</span></a></li><li><a class="site-page child" href="/music/"><i class="solitude  fas fa-music"></i><span>音乐馆</span></a></li></ul></div></div></div><div id="nav-left"></div><div id="nav-right"><div class="nav-button" id="travellings_button"><a class="site-page" target="_blank" rel="noopener" href="http://wd.gyyx.cn/download/" title=""><i class="solitude fas fa-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机一篇文章" href="javascript:void(0);"><i class="solitude fas fa-dice-d6"></i></a></div><div class="nav-button" id="nav-console"><a class="console_switchbutton" onclick="sco.showConsole()" title="中控台" href="javascript:void(0);"><label><i class="left"></i><i class="center"></i><i class="right"></i></label></a></div><div class="nav-button" id="nav-totop" onclick="sco.toTop()"><a class="totopbtn"><i class="solitude fas fa-arrow-up"></i><span id="percent">0</span></a></div><div id="toggle-menu"><a class="site-page"><i class="solitude fas fa-bars"></i></a></div></div></div></nav></header><main class="layout hide-aside" id="content-inner"><div id="page"><div class="article-container"><!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>问题答案查询系统（支持连续拼音）</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- 配置Tailwind自定义颜色 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#3B82F6',
+            secondary: '#6366F1',
+            neutral: '#F3F4F6',
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .search-focus {
+        @apply focus:ring-2 focus:ring-primary/50 focus:border-primary;
+      }
+      .result-item {
+        @apply p-4 border-b border-gray-100 hover:bg-neutral transition-colors duration-200;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+  <div class="container mx-auto px-4 py-8 max-w-4xl">
+    <!-- 页面标题 -->
+    <header class="text-center mb-8">
+      <p class="text-gray-500">支持中文、带空格拼音和无空格连续拼音搜索</p>
+    </header>
+    
+    <!-- 搜索区域 -->
+    <div class="bg-white rounded-xl shadow-md p-6 mb-6 transform transition-all duration-300 hover:shadow-lg">
+      <div class="relative">
+        <input 
+          type="text" 
+          id="searchInput" 
+          placeholder="输入中文、带空格拼音或连续拼音（如tianmo）..." 
+          class="w-full px-5 py-3 rounded-lg border border-gray-300 search-focus outline-none pl-12 text-gray-700"
+        >
+        <i class="fa fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+      </div>
+      <div class="mt-2 text-sm text-gray-500 flex justify-between items-center">
+        <span>支持带空格和无空格拼音，例如"tian mo"和"tianmo"都能搜索</span>
+        <button id="clearBtn" class="text-primary hover:text-primary/80 transition-colors hidden">
+          <i class="fa fa-times mr-1"></i>清除
+        </button>
+      </div>
+    </div>
+    
+    <!-- 结果统计 -->
+    <div id="resultStats" class="mb-4 text-gray-600 hidden">
+      找到 <span id="matchCount" class="font-semibold text-primary">0</span> 个匹配结果
+    </div>
+    
+    <!-- 结果区域 -->
+    <div id="resultContainer" class="bg-white rounded-xl shadow-md overflow-hidden">
+      <div id="initialState" class="py-16 text-center text-gray-500">
+        <i class="fa fa-search text-4xl mb-4 opacity-30"></i>
+        <span>请输入关键词开始搜索</span>
+      </div>
+      
+      <div id="noResults" class="py-16 text-center text-gray-500 hidden">
+        <i class="fa fa-frown-o text-4xl mb-4 opacity-30"></i>
+        <span>没有找到匹配的结果</span>
+      </div>
+      
+      <div id="results" class="divide-y divide-gray-100"></div>
+    </div>
+    
+    <!-- 使用说明 -->
+    <div class="mt-6 bg-white rounded-xl shadow-sm p-4 text-sm text-gray-600">
+      <h3 class="font-medium text-gray-800 mb-2"><i class="fa fa-info-circle text-primary mr-1"></i>搜索说明</h3>
+      <ul class="list-disc pl-5 space-y-1">
+        <li>中文搜索：输入"天魔厄"可找到对应结果</li>
+        <li>带空格拼音：输入"tian mo e"可找到"天魔厄"</li>
+        <li>无空格连续拼音：输入"tianmo"或"tianmoe"可找到"天魔厄"</li>
+        <li>首字母：输入"tm"或"tme"可找到"天魔厄"</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // 数据集合 - 包含多种拼音格式以便匹配
+       const data = [
+            { 
+                question: "阿依舍", 
+                pinyinWithSpace: "a yi she", 
+                pinyinWithoutSpace: "ayishe",
+                initials: "ays",
+                answer: "11" 
+            },
+            { 
+                question: "敖栾", 
+                pinyinWithSpace: "ao luan", 
+                pinyinWithoutSpace: "aoluan",
+                initials: "al",
+                answer: "21" 
+            },
+            { 
+                question: "毕方长老", 
+                pinyinWithSpace: "bi fang zhang lao", 
+                pinyinWithoutSpace: "bifangzhanglao",
+                initials: "bfzl",
+                answer: "21" 
+            },
+            { 
+                question: "碧玉童子", 
+                pinyinWithSpace: "bi yu tong zi", 
+                pinyinWithoutSpace: "biyutongzi",
+                initials: "byt z",
+                answer: "11" 
+            },
+            { 
+                question: "白骨精", 
+                pinyinWithSpace: "bai gu jing", 
+                pinyinWithoutSpace: "baigujing",
+                initials: "bgj",
+                answer: "12" 
+            },
+            { 
+                question: "冰媚儿", 
+                pinyinWithSpace: "bing mei er", 
+                pinyinWithoutSpace: "bingmeier",
+                initials: "bme",
+                answer: "21" 
+            },
+            { 
+                question: "冰儿", 
+                pinyinWithSpace: "bing er", 
+                pinyinWithoutSpace: "binger",
+                initials: "be",
+                answer: "12" 
+            },
+            { 
+                question: "赤精子", 
+                pinyinWithSpace: "chi jing zi", 
+                pinyinWithoutSpace: "chijingzi",
+                initials: "cjz",
+                answer: "11" 
+            },
+            { 
+                question: "刺猬怪", 
+                pinyinWithSpace: "ci wei guai", 
+                pinyinWithoutSpace: "ciweigua i",
+                initials: "cwg",
+                answer: "11" 
+            },
+            { 
+                question: "赤霞童子", 
+                pinyinWithSpace: "chi xia tong zi", 
+                pinyinWithoutSpace: "chixiatongzi",
+                initials: "cxtz",
+                answer: "11" 
+            },
+            { 
+                question: "彩云童子", 
+                pinyinWithSpace: "cai yun tong zi", 
+                pinyinWithoutSpace: "caiyuntongzi",
+                initials: "cytz",
+                answer: "12" 
+            },
+            { 
+                question: "蚩尤", 
+                pinyinWithSpace: "chi you", 
+                pinyinWithoutSpace: "chiyou",
+                initials: "cy",
+                answer: "21" 
+            },
+            { 
+                question: "重黎", 
+                pinyinWithSpace: "chong li", 
+                pinyinWithoutSpace: "chongli",
+                initials: "cl",
+                answer: "21" 
+            },
+            { 
+                question: "东皇太一", 
+                pinyinWithSpace: "dong huang tai yi", 
+                pinyinWithoutSpace: "donghuangtaiyi",
+                initials: "dhty",
+                answer: "21" 
+            },
+            { 
+                question: "大太子", 
+                pinyinWithSpace: "da tai zi", 
+                pinyinWithoutSpace: "dataizi",
+                initials: "dtz",
+                answer: "11" 
+            },
+            { 
+                question: "地烈阵主", 
+                pinyinWithSpace: "di lie zhen zhu", 
+                pinyinWithoutSpace: "dilizhenzhu",
+                initials: "dlzz",
+                answer: "11" 
+            },
+            { 
+                question: "多闻道人", 
+                pinyinWithSpace: "duo wen dao ren", 
+                pinyinWithoutSpace: "duowendao ren",
+                initials: "dwd r",
+                answer: "12" 
+            },
+            { 
+                question: "大将军", 
+                pinyinWithSpace: "da jiang jun", 
+                pinyinWithoutSpace: "dajiangjun",
+                initials: "djj",
+                answer: "22" 
+            },
+            { 
+                question: "东海龙女", 
+                pinyinWithSpace: "dong hai long nv", 
+                pinyinWithoutSpace: "donghailongnv",
+                initials: "d h l n",
+                answer: "22" 
+            },
+            { 
+                question: "东海龙王", 
+                pinyinWithSpace: "dong hai long wang", 
+                pinyinWithoutSpace: "donghailongwang",
+                initials: "dhlw",
+                answer: "11" 
+            },
+            { 
+                question: "地藏王", 
+                pinyinWithSpace: "di zang wang", 
+                pinyinWithoutSpace: "dizangwang",
+                initials: "dzw",
+                answer: "11" 
+            },
+            { 
+                question: "帝辛", 
+                pinyinWithSpace: "di xin", 
+                pinyinWithoutSpace: "dixin",
+                initials: "dx",
+                answer: "12" 
+            },
+            { 
+                question: "方大刚", 
+                pinyinWithSpace: "fang da gang", 
+                pinyinWithoutSpace: "fangdagang",
+                initials: "fdg",
+                answer: "11" 
+            },
+            { 
+                question: "费仲", 
+                pinyinWithSpace: "fei zhong", 
+                pinyinWithoutSpace: "feizhong",
+                initials: "fz",
+                answer: "12" 
+            },
+            { 
+                question: "肥遗", 
+                pinyinWithSpace: "fei yi", 
+                pinyinWithoutSpace: "feiyi",
+                initials: "fy",
+                answer: "12" 
+            },
+            { 
+                question: "风吼阵主", 
+                pinyinWithSpace: "feng hou zhen zhu", 
+                pinyinWithoutSpace: "fenghouzhenzhu",
+                initials: "fhzz",
+                answer: "12" 
+            },
+            { 
+                question: "蛊雕", 
+                pinyinWithSpace: "gu diao", 
+                pinyinWithoutSpace: "gudiao",
+                initials: "gd",
+                answer: "11" 
+            },
+            { 
+                question: "高兰英", 
+                pinyinWithSpace: "gao lan ying", 
+                pinyinWithoutSpace: "gaolanying",
+                initials: "gly",
+                answer: "12" 
+            },
+            { 
+                question: "钩蛇", 
+                pinyinWithSpace: "gou she", 
+                pinyinWithoutSpace: "goushe",
+                initials: "gs",
+                answer: "11" 
+            },
+            { 
+                question: "龟丞相", 
+                pinyinWithSpace: "gui cheng xiang", 
+                pinyinWithoutSpace: "guichengxiang",
+                initials: "gcx",
+                answer: "22" 
+            },
+            { 
+                question: "黄风童子", 
+                pinyinWithSpace: "huang feng tong zi", 
+                pinyinWithoutSpace: "huangfengtongzi",
+                initials: "hftz",
+                answer: "21" 
+            },
+            { 
+                question: "魔九", 
+                pinyinWithSpace: "mo jiu", 
+                pinyinWithoutSpace: "mojiu",
+                initials: "mj",
+                answer: "22" 
+            },
+            { 
+                question: "红砂阵主", 
+                pinyinWithSpace: "hong sha zhen zhu", 
+                pinyinWithoutSpace: "hongshazhenzhu",
+                initials: "hszz",
+                answer: "12" 
+            },
+            { 
+                question: "憾地魔", 
+                pinyinWithSpace: "han di mo", 
+                pinyinWithoutSpace: "handimo",
+                initials: "hdm",
+                answer: "12" 
+            },
+            { 
+                question: "红水阵主", 
+                pinyinWithSpace: "hong shui zhen zhu", 
+                pinyinWithoutSpace: "hongshuizhenzhu",
+                initials: "hszz",
+                answer: "22" 
+            },
+            { 
+                question: "黑山老妖", 
+                pinyinWithSpace: "hei shan lao yao", 
+                pinyinWithoutSpace: "heishanlaoyao",
+                initials: "hsly",
+                answer: "12" 
+            },
+            { 
+                question: "横公鱼", 
+                pinyinWithSpace: "heng gong yu", 
+                pinyinWithoutSpace: "henggongyu",
+                initials: "hgy",
+                answer: "12" 
+            },
+            { 
+                question: "阎罗", 
+                pinyinWithSpace: "yan luo", 
+                pinyinWithoutSpace: "yanluo",
+                initials: "yl",
+                answer: "22" 
+            },
+            { 
+                question: "虎骸", 
+                pinyinWithSpace: "hu hai", 
+                pinyinWithoutSpace: "huhai",
+                initials: "hh",
+                answer: "12" 
+            },
+            { 
+                question: "化血阵主", 
+                pinyinWithSpace: "hua xue zhen zhu", 
+                pinyinWithoutSpace: "huaxuezhenzhu",
+                initials: "hxzz",
+                answer: "12" 
+            },
+            { 
+                question: "寒冰阵主", 
+                pinyinWithSpace: "han bing zhen zhu", 
+                pinyinWithoutSpace: "hanbingzhenzhu",
+                initials: "hbzz",
+                answer: "12" 
+            },
+            { 
+                question: "精卫", 
+                pinyinWithSpace: "jing wei", 
+                pinyinWithoutSpace: "jingwei",
+                initials: "jw",
+                answer: "11" 
+            },
+            { 
+                question: "菊仙子", 
+                pinyinWithSpace: "ju xian zi", 
+                pinyinWithoutSpace: "juxianzi",
+                initials: "jxz",
+                answer: "22" 
+            },
+            { 
+                question: "金角大仙", 
+                pinyinWithSpace: "jin jiao da xian", 
+                pinyinWithoutSpace: "jinjiaodaxian",
+                initials: "jjdx",
+                answer: "12" 
+            },
+            { 
+                question: "惧留孙", 
+                pinyinWithSpace: "ju liu sun", 
+                pinyinWithoutSpace: "juliusun",
+                initials: "jls",
+                answer: "12" 
+            },
+            { 
+                question: "静里", 
+                pinyinWithSpace: "jing li", 
+                pinyinWithoutSpace: "jingli",
+                initials: "jl",
+                answer: "12" 
+            },
+            { 
+                question: "金光阵主", 
+                pinyinWithSpace: "jin guang zhen zhu", 
+                pinyinWithoutSpace: "jinguangzhenzhu",
+                initials: "jgzz",
+                answer: "12" 
+            },
+            { 
+                question: "金光仙", 
+                pinyinWithSpace: "jin guang xian", 
+                pinyinWithoutSpace: "jinguangxian",
+                initials: "jgx",
+                answer: "22" 
+            },
+            { 
+                question: "鲛人", 
+                pinyinWithSpace: "jiao ren", 
+                pinyinWithoutSpace: "jiaoren",
+                initials: "jr",
+                answer: "21" 
+            },
+            { 
+                question: "计蒙", 
+                pinyinWithSpace: "ji meng", 
+                pinyinWithoutSpace: "jimeng",
+                initials: "jm",
+                answer: "12" 
+            },
+            { 
+                question: "接引道人", 
+                pinyinWithSpace: "jie yin dao ren", 
+                pinyinWithoutSpace: "jieyindao ren",
+                initials: "jydr",
+                answer: "21" 
+            },
+            { 
+                question: "夔牛", 
+                pinyinWithSpace: "kui niu", 
+                pinyinWithoutSpace: "kuiniu",
+                initials: "kn",
+                answer: "11" 
+            },
+            { 
+                question: "礼官", 
+                pinyinWithSpace: "li guan", 
+                pinyinWithoutSpace: "liguan",
+                initials: "lg",
+                answer: "11" 
+            },
+            { 
+                question: "鹿蜀", 
+                pinyinWithSpace: "lu shu", 
+                pinyinWithoutSpace: "lushu",
+                initials: "ls",
+                answer: "21" 
+            },
+            { 
+                question: "狸力", 
+                pinyinWithSpace: "li li", 
+                pinyinWithoutSpace: "lili",
+                initials: "ll",
+                answer: "21" 
+            },
+            { 
+                question: "灵界异人", 
+                pinyinWithSpace: "ling jie yi ren", 
+                pinyinWithoutSpace: "lingjieyiren",
+                initials: "ljyr",
+                answer: "12" 
+            },
+            { 
+                question: "陆压真人", 
+                pinyinWithSpace: "lu ya zhen ren", 
+                pinyinWithoutSpace: "luyazhenren",
+                initials: "lyzr",
+                answer: "12" 
+            },
+            { 
+                question: "烈焰阵主", 
+                pinyinWithSpace: "lie yan zhen zhu", 
+                pinyinWithoutSpace: "lieyanzhenzhu",
+                initials: "lyzz",
+                answer: "12" 
+            },
+            { 
+                question: "莲花姑娘", 
+                pinyinWithSpace: "lian hua gu niang", 
+                pinyinWithoutSpace: "lianhugu niang",
+                initials: "lhgn",
+                answer: "21" 
+            },
+            { 
+                question: "龙吉公主", 
+                pinyinWithSpace: "long ji gong zhu", 
+                pinyinWithoutSpace: "longjigongzhu",
+                initials: "ljgz",
+                answer: "22" 
+            },
+            { 
+                question: "落魄仙人", 
+                pinyinWithSpace: "luo po xian ren", 
+                pinyinWithoutSpace: "luopoxianren",
+                initials: "lpxr",
+                answer: "12" 
+            },
+            { 
+                question: "绿玉君", 
+                pinyinWithSpace: "lü yu jun", 
+                pinyinWithoutSpace: "lvyujun",
+                initials: "lyj",
+                answer: "22" 
+            },
+            { 
+                question: "琉璃", 
+                pinyinWithSpace: "liu li", 
+                pinyinWithoutSpace: "liuli",
+                initials: "ll",
+                answer: "22" 
+            },
+            { 
+                question: "罗睺", 
+                pinyinWithSpace: "luo hou", 
+                pinyinWithoutSpace: "luohou",
+                initials: "lh",
+                answer: "22" 
+            },
+            { 
+                question: "灵牙仙", 
+                pinyinWithSpace: "ling ya xian", 
+                pinyinWithoutSpace: "lingyaxian",
+                initials: "lyx",
+                answer: "11" 
+            },
+            { 
+                question: "梦诛", 
+                pinyinWithSpace: "meng zhu", 
+                pinyinWithoutSpace: "mengzhu",
+                initials: "mz",
+                answer: "11" 
+            },
+            { 
+                question: "沐婉", 
+                pinyinWithSpace: "mu wan", 
+                pinyinWithoutSpace: "muwan",
+                initials: "mw",
+                answer: "11" 
+            },
+            { 
+                question: "鸣蛇", 
+                pinyinWithSpace: "ming she", 
+                pinyinWithoutSpace: "mingshe",
+                initials: "ms",
+                answer: "21" 
+            },
+            { 
+                question: "木美姬", 
+                pinyinWithSpace: "mu mei ji", 
+                pinyinWithoutSpace: "mumeiji",
+                initials: "mmj",
+                answer: "12" 
+            },
+            { 
+                question: "孟婆", 
+                pinyinWithSpace: "meng po", 
+                pinyinWithoutSpace: "mengpo",
+                initials: "mp",
+                answer: "12" 
+            },
+            { 
+                question: "马云", 
+                pinyinWithSpace: "ma yun", 
+                pinyinWithoutSpace: "mayun",
+                initials: "my",
+                answer: "21" 
+            },
+            { 
+                question: "摩柯迦罗", 
+                pinyinWithSpace: "mo ke jia luo", 
+                pinyinWithoutSpace: "mokejialuo",
+                initials: "mkjl",
+                answer: "12" 
+            },
+            { 
+                question: "牛魔王子", 
+                pinyinWithSpace: "niu mo wang zi", 
+                pinyinWithoutSpace: "niumowangzi",
+                initials: "nmwz",
+                answer: "12" 
+            },
+            { 
+                question: "南极仙翁", 
+                pinyinWithSpace: "nan ji xian weng", 
+                pinyinWithoutSpace: "nanjixianweng",
+                initials: "njxw",
+                answer: "22" 
+            },
+            { 
+                question: "辟尘大王", 
+                pinyinWithSpace: "bi chen da wang", 
+                pinyinWithoutSpace: "bichen da wang",
+                initials: "bc dw",
+                answer: "21" 
+            },
+            { 
+                question: "辟寒大王", 
+                pinyinWithSpace: "bi han da wang", 
+                pinyinWithoutSpace: "bihandawang",
+                initials: "bhdw",
+                answer: "22" 
+            },
+            { 
+                question: "辟暑大王", 
+                pinyinWithSpace: "bi shu da wang", 
+                pinyinWithoutSpace: "bishudawang",
+                initials: "bsdw",
+                answer: "11" 
+            },
+            { 
+                question: "普贤真人", 
+                pinyinWithSpace: "pu xian zhen ren", 
+                pinyinWithoutSpace: "puxianzhenren",
+                initials: "pxzr",
+                answer: "12" 
+            },
+            { 
+                question: "秦校尉", 
+                pinyinWithSpace: "qin xiao wei", 
+                pinyinWithoutSpace: "qinxiaowei",
+                initials: "qxw",
+                answer: "11" 
+            },
+            { 
+                question: "乾达多", 
+                pinyinWithSpace: "qian da duo", 
+                pinyinWithoutSpace: "qiandaduo",
+                initials: "qdd",
+                answer: "11" 
+            },
+            { 
+                question: "琴精", 
+                pinyinWithSpace: "qin jing", 
+                pinyinWithoutSpace: "qinjing",
+                initials: "qj",
+                answer: "21" 
+            },
+            { 
+                question: "虬首仙", 
+                pinyinWithSpace: "qiu shou xian", 
+                pinyinWithoutSpace: "qiushouxian",
+                initials: "qsx",
+                answer: "22" 
+            },
+            { 
+                question: "齐天大圣", 
+                pinyinWithSpace: "qi tian da sheng", 
+                pinyinWithoutSpace: "qitiandasheng",
+                initials: "qtds",
+                answer: "11" 
+            },
+            { 
+                question: "秦大公", 
+                pinyinWithSpace: "qin da gong", 
+                pinyinWithoutSpace: "qindagong",
+                initials: "qdg",
+                answer: "12" 
+            },
+            { 
+                question: "噬天魔", 
+                pinyinWithSpace: "shi tian mo", 
+                pinyinWithoutSpace: "shitianmo",
+                initials: "stm",
+                answer: "11" 
+            },
+            { 
+                question: "石矶娘娘", 
+                pinyinWithSpace: "shi ji niang niang", 
+                pinyinWithoutSpace: "shijiniangniang",
+                initials: "sjnn",
+                answer: "12" 
+            },
+            { 
+                question: "十八娘", 
+                pinyinWithSpace: "shi ba niang", 
+                pinyinWithoutSpace: "shibaniang",
+                initials: "sbn",
+                answer: "11" 
+            },
+            { 
+                question: "水灵童子", 
+                pinyinWithSpace: "shui ling tong zi", 
+                pinyinWithoutSpace: "shuilingtongzi",
+                initials: "sltz",
+                answer: "12" 
+            },
+            { 
+                question: "上古妖王", 
+                pinyinWithSpace: "shang gu yao wang", 
+                pinyinWithoutSpace: "shanggu yaowang",
+                initials: "sgyw",
+                answer: "12" 
+            },
+            { 
+                question: "天宫护卫", 
+                pinyinWithSpace: "tian gong hu wei", 
+                pinyinWithoutSpace: "tiangonghuwei",
+                initials: "tghw",
+                answer: "11" 
+            },
+            { 
+                question: "太玄神君", 
+                pinyinWithSpace: "tai xuan shen jun", 
+                pinyinWithoutSpace: "taixuanshenjun",
+                initials: "txsj",
+                answer: "11" 
+            },
+            { 
+                question: "天宫仙将", 
+                pinyinWithSpace: "tian gong xian jiang", 
+                pinyinWithoutSpace: "tiangongxianjiang",
+                initials: "tgxj",
+                answer: "12" 
+            },
+            { 
+                question: "天机老人", 
+                pinyinWithSpace: "tian ji lao ren", 
+                pinyinWithoutSpace: "tianjilaoren",
+                initials: "tjlr",
+                answer: "12" 
+            },
+            { 
+                question: "太乙真人", 
+                pinyinWithSpace: "tai yi zhen ren", 
+                pinyinWithoutSpace: "taiyizhenren",
+                initials: "tyzr",
+                answer: "21" 
+            },
+            { 
+                question: "太妙真君", 
+                pinyinWithSpace: "tai miao zhen jun", 
+                pinyinWithoutSpace: "taimiaozhenjun",
+                initials: "tmzj",
+                answer: "22" 
+            },
+            { 
+                question: "天魔殇", 
+                pinyinWithSpace: "tian mo shang", 
+                pinyinWithoutSpace: "tianmoshang",
+                initials: "tms",
+                answer: "11" 
+            },
+            { 
+                question: "天魔劫", 
+                pinyinWithSpace: "tian mo jie", 
+                pinyinWithoutSpace: "tianmojie",
+                initials: "tmj",
+                answer: "21" 
+            },
+            { 
+                question: "天魔指", 
+                pinyinWithSpace: "tian mo zhi", 
+                pinyinWithoutSpace: "tianmozhi",
+                initials: "tmz",
+                answer: "12" 
+            },
+            { 
+                question: "天魔厄", 
+                pinyinWithSpace: "tian mo e", 
+                pinyinWithoutSpace: "tianmoe",
+                initials: "tme",
+                answer: "12" 
+            },
+            { 
+                question: "天魔染", 
+                pinyinWithSpace: "tian mo ran", 
+                pinyinWithoutSpace: "tianmoran",
+                initials: "tmr",
+                answer: "21" 
+            },
+            { 
+                question: "天魔阵主", 
+                pinyinWithSpace: "tian mo zhen zhu", 
+                pinyinWithoutSpace: "tianmozhenzhu",
+                initials: "tmzz",
+                answer: "12" 
+            },
+            { 
+                question: "天阙妖师", 
+                pinyinWithSpace: "tian que yao shi", 
+                pinyinWithoutSpace: "tianqueyaoshi",
+                initials: "tqys",
+                answer: "12" 
+            },
+            { 
+                question: "天竺公主", 
+                pinyinWithSpace: "tian zhu gong zhu", 
+                pinyinWithoutSpace: "tianzhugongzhu",
+                initials: "tzgz",
+                answer: "21" 
+            },
+            { 
+                question: "无当圣母", 
+                pinyinWithSpace: "wu dang sheng mu", 
+                pinyinWithoutSpace: "wudangshengmu",
+                initials: "wdsm",
+                answer: "11" 
+            },
+            { 
+                question: "无想僧", 
+                pinyinWithSpace: "wu xiang seng", 
+                pinyinWithoutSpace: "wuxiangseng",
+                initials: "wxs",
+                answer: "11" 
+            },
+            { 
+                question: "无念僧", 
+                pinyinWithSpace: "wu nian seng", 
+                pinyinWithoutSpace: "wunianseng",
+                initials: "wns",
+                answer: "11" 
+            },
+            { 
+                question: "武德星君", 
+                pinyinWithSpace: "wu de xing jun", 
+                pinyinWithoutSpace: "wudexingjun",
+                initials: "wdxj",
+                answer: "11" 
+            },
+            { 
+                question: "乌云仙", 
+                pinyinWithSpace: "wu yun xian", 
+                pinyinWithoutSpace: "wuyunxian",
+                initials: "wyx",
+                answer: "12" 
+            },
+            { 
+                question: "文殊天尊", 
+                pinyinWithSpace: "wen shu tian zun", 
+                pinyinWithoutSpace: "wenshutianzun",
+                initials: "wstz",
+                answer: "21" 
+            },
+            { 
+                question: "韦护", 
+                pinyinWithSpace: "wei hu", 
+                pinyinWithoutSpace: "weihu",
+                initials: "wh",
+                answer: "22" 
+            },
+            { 
+                question: "玄都法师", 
+                pinyinWithSpace: "xuan du fa shi", 
+                pinyinWithoutSpace: "xuandufa shi",
+                initials: "xdf s",
+                answer: "11" 
+            },
+            { 
+                question: "西域国王", 
+                pinyinWithSpace: "xi yu guo wang", 
+                pinyinWithoutSpace: "xiyuguowang",
+                initials: "xygw",
+                answer: "11" 
+            },
+            { 
+                question: "小王子", 
+                pinyinWithSpace: "xiao wang zi", 
+                pinyinWithoutSpace: "xiaowangzi",
+                initials: "xwz",
+                answer: "11" 
+            },
+            { 
+                question: "萧臻", 
+                pinyinWithSpace: "xiao zhen", 
+                pinyinWithoutSpace: "xiaozhen",
+                initials: "xz",
+                answer: "11" 
+            },
+            { 
+                question: "巡游仙将", 
+                pinyinWithSpace: "xun you xian jiang", 
+                pinyinWithoutSpace: "xunyouxianjiang",
+                initials: "xyxj",
+                answer: "11" 
+            },
+            { 
+                question: "熊怪", 
+                pinyinWithSpace: "xiong guai", 
+                pinyinWithoutSpace: "xiongguai",
+                initials: "xg",
+                answer: "11" 
+            },
+            { 
+                question: "香菱", 
+                pinyinWithSpace: "xiang ling", 
+                pinyinWithoutSpace: "xiangling",
+                initials: "xl",
+                answer: "11" 
+            },
+            { 
+                question: "许飞琼", 
+                pinyinWithSpace: "xu fei qiong", 
+                pinyinWithoutSpace: "xufeiqiong",
+                initials: "xfq",
+                answer: "12" 
+            },
+            { 
+                question: "夏总兵", 
+                pinyinWithSpace: "xia zong bing", 
+                pinyinWithoutSpace: "xiazongbing",
+                initials: "xzb",
+                answer: "12" 
+            },
+            { 
+                question: "薛统领", 
+                pinyinWithSpace: "xue tong ling", 
+                pinyinWithoutSpace: "xuetongling",
+                initials: "xtl",
+                answer: "22" 
+            },
+            { 
+                question: "云霄童子", 
+                pinyinWithSpace: "yun xiao tong zi", 
+                pinyinWithoutSpace: "yunxiaotongzi",
+                initials: "yxtz",
+                answer: "11" 
+            },
+            { 
+                question: "尹喜", 
+                pinyinWithSpace: "yin xi", 
+                pinyinWithoutSpace: "yinxi",
+                initials: "yx",
+                answer: "11" 
+            },
+            { 
+                question: "尤淫", 
+                pinyinWithSpace: "you yin", 
+                pinyinWithoutSpace: "youyin",
+                initials: "yy",
+                answer: "11" 
+            },
+            { 
+                question: "怨灵鬼将", 
+                pinyinWithSpace: "yuan ling gui jiang", 
+                pinyinWithoutSpace: "yuanlingguijiang",
+                initials: "ylgj",
+                answer: "12" 
+            },
+            { 
+                question: "杨森", 
+                pinyinWithSpace: "yang sen", 
+                pinyinWithoutSpace: "yangsen",
+                initials: "ys",
+                answer: "12" 
+            },
+            { 
+                question: "鱼怪", 
+                pinyinWithSpace: "yu guai", 
+                pinyinWithoutSpace: "yuguai",
+                initials: "yg",
+                answer: "12" 
+            },
+            { 
+                question: "鱼怪头领", 
+                pinyinWithSpace: "yu guai tou ling", 
+                pinyinWithoutSpace: "yuguaitouling",
+                initials: "ygtl",
+                answer: "12" 
+            },
+            { 
+                question: "阳圣", 
+                pinyinWithSpace: "yang sheng", 
+                pinyinWithoutSpace: "yangsheng",
+                initials: "ys",
+                answer: "21" 
+            },
+            { 
+                question: "芸熙", 
+                pinyinWithSpace: "yun xi", 
+                pinyinWithoutSpace: "yunxi",
+                initials: "yx",
+                answer: "22" 
+            },
+            { 
+                question: "魇魅", 
+                pinyinWithSpace: "yan mei", 
+                pinyinWithoutSpace: "yanmei",
+                initials: "ym",
+                answer: "12" 
+            },
+            { 
+                question: "云散天", 
+                pinyinWithSpace: "yun san tian", 
+                pinyinWithoutSpace: "yunsantian",
+                initials: "yst",
+                answer: "22" 
+            },
+            { 
+                question: "云中子", 
+                pinyinWithSpace: "yun zhong zi", 
+                pinyinWithoutSpace: "yunzhongzi",
+                initials: "yzz",
+                answer: "22" 
+            },
+            { 
+                question: "妖狐王", 
+                pinyinWithSpace: "yao hu wang", 
+                pinyinWithoutSpace: "yaohuwang",
+                initials: "yhw",
+                answer: "12" 
+            },
+            { 
+                question: "佑圣真君", 
+                pinyinWithSpace: "you sheng zhen jun", 
+                pinyinWithoutSpace: "youshengzhenjun",
+                initials: "yszj",
+                answer: "12" 
+            },
+            { 
+                question: "翊圣真君", 
+                pinyinWithSpace: "yi sheng zhen jun", 
+                pinyinWithoutSpace: "yishengzhenjun",
+                initials: "yszj",
+                answer: "21" 
+            },
+            { 
+                question: "擎令使", 
+                pinyinWithSpace: "qing ling shi", 
+                pinyinWithoutSpace: "qinglingshi",
+                initials: "qls",
+                answer: "11" 
+            },
+            { 
+                question: "张奎", 
+                pinyinWithSpace: "zhang kui", 
+                pinyinWithoutSpace: "zhangkui",
+                initials: "zk",
+                answer: "12" 
+            },
+            { 
+                question: "猪婆龙", 
+                pinyinWithSpace: "zhu po long", 
+                pinyinWithoutSpace: "zhupolong",
+                initials: "zpl",
+                answer: "11" 
+            },
+            { 
+                question: "蜘蛛精", 
+                pinyinWithSpace: "zhi zhu jing", 
+                pinyinWithoutSpace: "zhizhujing",
+                initials: "zzj",
+                answer: "11" 
+            },
+            { 
+                question: "朱厌", 
+                pinyinWithSpace: "zhu yan", 
+                pinyinWithoutSpace: "zhuyan",
+                initials: "zy",
+                answer: "21" 
+            },
+            { 
+                question: "诸健", 
+                pinyinWithSpace: "zhu jian", 
+                pinyinWithoutSpace: "zhujian",
+                initials: "zj",
+                answer: "22" 
+            },
+            { 
+                question: "紫霞真人", 
+                pinyinWithSpace: "zi xia zhen ren", 
+                pinyinWithoutSpace: "zixiazhenren",
+                initials: "zxzr",
+                answer: "21" 
+            },
+            { 
+                question: "芝仙", 
+                pinyinWithSpace: "zhi xian", 
+                pinyinWithoutSpace: "zhixian",
+                initials: "zx",
+                answer: "21" 
+            },
+            { 
+                question: "准提道人", 
+                pinyinWithSpace: "zhun ti dao ren", 
+                pinyinWithoutSpace: "zhunti dao ren",
+                initials: "ztdr",
+                answer: "12" 
+            }
+        ];
+
+    // 获取DOM元素
+    const searchInput = document.getElementById('searchInput');
+    const resultsContainer = document.getElementById('results');
+    const initialState = document.getElementById('initialState');
+    const noResults = document.getElementById('noResults');
+    const resultStats = document.getElementById('resultStats');
+    const matchCount = document.getElementById('matchCount');
+    const clearBtn = document.getElementById('clearBtn');
+
+    // 搜索功能实现 - 支持带空格和无空格拼音
+    function search() {
+      const searchText = searchInput.value.trim().toLowerCase();
+      
+      // 显示或隐藏清除按钮
+      clearBtn.classList.toggle('hidden', !searchText);
+      
+      // 处理空输入
+      if (!searchText) {
+        initialState.classList.remove('hidden');
+        noResults.classList.add('hidden');
+        resultsContainer.classList.add('hidden');
+        resultStats.classList.add('hidden');
+        return;
+      }
+      
+      // 筛选匹配的结果 - 多维度匹配
+      const filteredData = data.filter(item => 
+        // 匹配中文
+        item.question.toLowerCase().includes(searchText) ||
+        // 匹配带空格的拼音
+        item.pinyinWithSpace.toLowerCase().includes(searchText) ||
+        // 匹配无空格的连续拼音
+        item.pinyinWithoutSpace.toLowerCase().includes(searchText) ||
+        // 匹配首字母
+        item.initials.toLowerCase().includes(searchText)
+      );
+      
+      // 更新统计信息
+      matchCount.textContent = filteredData.length;
+      resultStats.classList.remove('hidden');
+      
+      // 显示相应的状态
+      initialState.classList.add('hidden');
+      resultsContainer.classList.remove('hidden');
+      
+      if (filteredData.length === 0) {
+        noResults.classList.remove('hidden');
+        results.innerHTML = '';
+      } else {
+        noResults.classList.add('hidden');
+        renderResults(filteredData, searchText);
+      }
+    }
+    
+    // 渲染搜索结果
+    function renderResults(results, searchText) {
+      resultsContainer.innerHTML = '';
+      
+      results.forEach(item => {
+        // 组合显示文本
+        const displayText = `${item.question} 
+          <span class="text-gray-500 text-sm">
+            (拼音: ${item.pinyinWithSpace} / ${item.pinyinWithoutSpace}) 
+            [首字母: ${item.initials}]
+          </span>`;
+        
+        // 高亮匹配的文本
+        let highlightedText = displayText
+          .replace(new RegExp(`(${searchText})`, 'gi'), '<span class="bg-yellow-200 px-0.5 rounded">$1</span>');
+        
+        const resultItem = document.createElement('div');
+        resultItem.className = 'result-item';
+        resultItem.innerHTML = `
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+            <div>
+              <h3 class="font-medium text-gray-800">${highlightedText}</h3>
+            </div>
+            <div class="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">
+              ${item.answer}
+            </div>
+          </div>
+        `;
+        
+        resultsContainer.appendChild(resultItem);
+      });
+    }
+    
+    // 清除搜索
+    function clearSearch() {
+      searchInput.value = '';
+      search();
+      searchInput.focus();
+    }
+    
+    // 事件监听
+    searchInput.addEventListener('input', search);
+    clearBtn.addEventListener('click', clearSearch);
+    searchInput.addEventListener('keyup', (e) => {
+      if (e.key === 'Escape') {
+        clearSearch();
+      }
+    });
+    
+    // 初始化
+    search();
+  </script>
+</body>
+
+</html>
+</div><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="solitude fas fa-comment"></i><span> 评论</span></div></div><div class="comment-wrap"><div id="twikoo-wrap"></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><div class="top-group"><div class="sayhi" id="sayhi" onclick="sco.changeWittyWord()"></div></div></div><div class="avatar"><img alt="头像" src="https://bu.dusays.com/2025/09/03/68b8063223a74.jpg"></div><div class="description">这是我的博客 / This is my Blog</div><div class="bottom-group"><span class="left"><div class="name">喵咪先生</div><div class="desc">进德修业，继承创新。</div></span><div class="social-icons is-center"><a class="social-icon" target="_blank" rel="noopener" href="https://space.bilibili.com/24709523" title="Bilibili"><i class="solitude  fab fa-bilibili"></i></a></div></div></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="solitude fas fa-map"></i><span>最近发布</span></div><div class="aside-list"><a class="aside-list-item" href="/2025/07/13/1.%E5%B0%8F%E5%8F%B7%EF%BC%88%E8%A7%92%E8%89%B2%E5%88%9B%E5%BB%BA%E5%89%8D%E6%9C%9F%E5%8F%91%E5%B1%95%E6%80%9D%E8%B7%AF%EF%BC%89/" title="角色创建 - 前期发展思路"><div class="thumbnail"><img alt="角色创建 - 前期发展思路" src="https://bu.dusays.com/2025/09/04/68b97b5fcade9.png"></div><div class="content"><span class="title" href="/2025/07/13/1.%E5%B0%8F%E5%8F%B7%EF%BC%88%E8%A7%92%E8%89%B2%E5%88%9B%E5%BB%BA%E5%89%8D%E6%9C%9F%E5%8F%91%E5%B1%95%E6%80%9D%E8%B7%AF%EF%BC%89/" title="角色创建 - 前期发展思路">角色创建 - 前期发展思路</span><span class="categories" href="/2025/07/13/1.%E5%B0%8F%E5%8F%B7%EF%BC%88%E8%A7%92%E8%89%B2%E5%88%9B%E5%BB%BA%E5%89%8D%E6%9C%9F%E5%8F%91%E5%B1%95%E6%80%9D%E8%B7%AF%EF%BC%89/">游戏日常</span></div></a><a class="aside-list-item" href="/2025/07/13/2.%E5%B0%8F%E5%8F%B7%EF%BC%88%E4%BF%AE%E5%B1%B1%E5%8D%87%E7%BA%A7%E8%A3%85%E5%A4%87%E5%AE%A0%E7%89%A9%E4%BB%8B%E7%BB%8D%EF%BC%89/" title="修山升级 - 装备宠物介绍"><div class="thumbnail"><img alt="修山升级 - 装备宠物介绍" src="https://bu.dusays.com/2025/09/04/68b97b592d8ac.png"></div><div class="content"><span class="title" href="/2025/07/13/2.%E5%B0%8F%E5%8F%B7%EF%BC%88%E4%BF%AE%E5%B1%B1%E5%8D%87%E7%BA%A7%E8%A3%85%E5%A4%87%E5%AE%A0%E7%89%A9%E4%BB%8B%E7%BB%8D%EF%BC%89/" title="修山升级 - 装备宠物介绍">修山升级 - 装备宠物介绍</span><span class="categories" href="/2025/07/13/2.%E5%B0%8F%E5%8F%B7%EF%BC%88%E4%BF%AE%E5%B1%B1%E5%8D%87%E7%BA%A7%E8%A3%85%E5%A4%87%E5%AE%A0%E7%89%A9%E4%BB%8B%E7%BB%8D%EF%BC%89/">游戏日常</span></div></a><a class="aside-list-item" href="/2025/07/13/3.%E5%B0%8F%E5%8F%B7%EF%BC%88%E4%BB%BB%E5%8A%A1%E5%8D%87%E7%BA%A7%E5%AE%A0%E7%89%A9%E5%BC%BA%E5%85%BB%E9%A3%9E%E5%8D%87%EF%BC%89/" title="任务升级 - 宠物强养飞升"><div class="thumbnail"><img alt="任务升级 - 宠物强养飞升" src="https://bu.dusays.com/2025/09/04/68b97f8856703.png"></div><div class="content"><span class="title" href="/2025/07/13/3.%E5%B0%8F%E5%8F%B7%EF%BC%88%E4%BB%BB%E5%8A%A1%E5%8D%87%E7%BA%A7%E5%AE%A0%E7%89%A9%E5%BC%BA%E5%85%BB%E9%A3%9E%E5%8D%87%EF%BC%89/" title="任务升级 - 宠物强养飞升">任务升级 - 宠物强养飞升</span><span class="categories" href="/2025/07/13/3.%E5%B0%8F%E5%8F%B7%EF%BC%88%E4%BB%BB%E5%8A%A1%E5%8D%87%E7%BA%A7%E5%AE%A0%E7%89%A9%E5%BC%BA%E5%85%BB%E9%A3%9E%E5%8D%87%EF%BC%89/">游戏日常</span></div></a><a class="aside-list-item" href="/2025/07/13/4.%E5%B0%8F%E5%8F%B7%EF%BC%88%E9%AA%91%E4%B8%8A%E5%A4%A7%E8%8D%92%E7%8C%9B%E7%8C%9B%E5%8D%87%E7%BA%A7%EF%BC%89/" title="骑上大荒 - 猛猛！升级！"><div class="thumbnail"><img alt="骑上大荒 - 猛猛！升级！" src="https://bu.dusays.com/2025/09/04/68b97b38da60e.png"></div><div class="content"><span class="title" href="/2025/07/13/4.%E5%B0%8F%E5%8F%B7%EF%BC%88%E9%AA%91%E4%B8%8A%E5%A4%A7%E8%8D%92%E7%8C%9B%E7%8C%9B%E5%8D%87%E7%BA%A7%EF%BC%89/" title="骑上大荒 - 猛猛！升级！">骑上大荒 - 猛猛！升级！</span><span class="categories" href="/2025/07/13/4.%E5%B0%8F%E5%8F%B7%EF%BC%88%E9%AA%91%E4%B8%8A%E5%A4%A7%E8%8D%92%E7%8C%9B%E7%8C%9B%E5%8D%87%E7%BA%A7%EF%BC%89/">游戏日常</span></div></a><a class="aside-list-item" href="/2025/07/13/5.%E5%B0%8F%E5%8F%B7%EF%BC%88%E6%B5%AE%E7%94%9F%E6%88%90%E5%B0%B1%E5%8A%A0%E4%BB%93%E7%8C%9B%E6%89%AB%E8%A3%85%E5%A4%87%EF%BC%89/" title="浮生成就 - 加仓猛扫装备"><div class="thumbnail"><img alt="浮生成就 - 加仓猛扫装备" src="https://bu.dusays.com/2025/09/04/68b97ba189fdc.png"></div><div class="content"><span class="title" href="/2025/07/13/5.%E5%B0%8F%E5%8F%B7%EF%BC%88%E6%B5%AE%E7%94%9F%E6%88%90%E5%B0%B1%E5%8A%A0%E4%BB%93%E7%8C%9B%E6%89%AB%E8%A3%85%E5%A4%87%EF%BC%89/" title="浮生成就 - 加仓猛扫装备">浮生成就 - 加仓猛扫装备</span><span class="categories" href="/2025/07/13/5.%E5%B0%8F%E5%8F%B7%EF%BC%88%E6%B5%AE%E7%94%9F%E6%88%90%E5%B0%B1%E5%8A%A0%E4%BB%93%E7%8C%9B%E6%89%AB%E8%A3%85%E5%A4%87%EF%BC%89/">游戏日常</span></div></a></div></div><div class="card-widget card-tags card-archives card-webinfo card-allinfo"><div class="card-tag-cloud"><a href="/tags/%E5%B0%8F%E5%8F%B7%E6%97%A5%E5%B8%B8/">小号日常<sup>8</sup></a><a href="/tags/%E6%9C%AC%E5%91%BD%E6%B3%95%E5%AE%9D/">本命法宝<sup>1</sup></a><a href="/tags/%E8%BD%AC%E7%94%9F%E6%8A%80%E8%83%BD/">转生技能<sup>1</sup></a></div><style>.card-tag-cloud::after {
+    display: none !important;
+}</style><hr><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章总数 :</div><div class="item-count">10</div></div><div class="webinfo-item"><div class="item-name">建站天数 :</div><div class="item-count" id="runtimeshow"></div></div><div class="webinfo-item"><div class="item-name">最后更新 :</div><time class="item-count" datetime="2025-09-05T21:28:42.434Z"></time></div></div></div></div></div></main><footer id="footer"><div id="footer_deal"><a class="deal_link" target="_blank" rel="noopener" href="https://space.bilibili.com/24709523" title="Bilibili"><i class="solitude  fab fa-bilibili"></i></a><div><div class="nolazyload footer_mini_logo" id="footer_mini_logo" title="返回顶部" onclick="sco.toTop()"><img src="https://bu.dusays.com/2025/09/04/68b8d5e753727.png" alt="返回顶部"></div></div><a class="deal_link" target="_blank" rel="noopener" href="https://v.douyin.com/" title="Douyin"><i class="solitude  fab fa-tiktok"></i></a></div><div><div id="st-footer"><div class="footer-group"><h3 class="footer-title">导航</h3><div class="footer-links"><a class="footer-item" target="_blank" rel="noopener" href="http://wd.gyyx.cn/" title="官网">官网</a><a class="footer-item" target="_blank" rel="noopener" href="http://qibao.gyyx.cn/" title="奇宝斋">奇宝斋</a><a class="footer-item" target="_blank" rel="noopener" href="http://wd.gyyx.cn/huodong/app/index.html" title="乾坤锁">乾坤锁</a></div></div><div class="footer-group"><h3 class="footer-title">交流</h3><div class="footer-links"><a class="footer-item" target="_blank" rel="noopener" href="http://dao.gyyx.cn/forum" title="问道论坛">问道论坛</a><a class="footer-item" target="_blank" rel="noopener" href="https://weibo.com/wendaoguanfang" title="问道微博">问道微博</a><a class="footer-item" target="_blank" rel="noopener" href="http://kf.gyyx.cn/" title="问道客服">问道客服</a></div></div><div class="footer-group"><div class="footer-title-group"><h3 class="footer-title">友链</h3><button class="random-friends-btn" onclick="randomLinksList()" title="友链"><i class="solitude fas fa-arrows-rotate"></i></button></div><div class="footer-links" id="friend-links-in-footer"></div></div></div></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div class="copyright">© 2023 - 2025 By<a class="footer-bar-link" href="/" title="喵咪先生">喵咪先生</a></div><div class="beian-group"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://hexo.io/" title="框架：Hexo">框架：Hexo</a><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/everfu/hexo-theme-solitude" title="主题：Solitude">主题：Solitude</a></div></div><div><div class="footer-bar-right"><a class="footer-bar-link" href="/atom.xml" title="">RSS</a><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/everfu/hexo-theme-solitude/blob/main/LICENSE" title=""><i class="solitude fas fa-copyright"></i><i class="solitude fab fa-creative-commons-by"></i><i class="solitude fab fa-creative-commons-nc"></i><i class="solitude fab fa-creative-commons-nd"></i></a><a class="footer-bar-link" target="_blank" rel="noopener" href="https://space.bilibili.com/24709523" title=""><img src="https://bu.dusays.com/2025/09/03/68b805a2a4079.png" alt="喵咪先生"></a></div></div></div></div><div><div class="comment-barrage needEndHide"></div></div></footer></div><div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="solitude fas fa-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="solitude fas fa-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="solitude fas fa-arrows-rotate"></i></div><div class="rightMenu-item" id="menu-top"><i class="solitude fas fa-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="solitude fas fa-clone"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="solitude fas fa-clipboard"></i><span>粘贴文本</span></div><div class="rightMenu-item" id="menu-commenttext"><i class="solitude fas fa-comment-medical"></i><span>引用到评论</span></div><div class="rightMenu-item" id="menu-newwindow"><i class="solitude far fa-window-maximize"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="solitude fas fa-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="solitude fas fa-clone"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="solitude fas fa-cloud-arrow-down"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="solitude fas fa-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="solitude fas fa-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="solitude fas fa-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="solitude fas fa-clone"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><div class="rightMenu-item" id="menu-randomPost" onclick="toRandomPost()||rm.hideRightMenu()"><i class="solitude fas fa-tower-broadcast"></i><span>随机文章</span></div><div class="rightMenu-item" onclick="pjax.loadUrl('/categories/')||rm.hideRightMenu()"><i class="solitude fas fa-clone"></i><span>全部分类</span></div><div class="rightMenu-item" onclick="pjax.loadUrl('/tags/')||rm.hideRightMenu()"><i class="solitude fas fa-tags"></i><span>全部标签</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><div class="rightMenu-item" id="menu-commentBarrage" onclick="sco.switchCommentBarrage()"><i class="solitude fas fa-comment"></i><span class="menu-commentBarrage-text">关闭热评</span></div><div class="rightMenu-item" id="menu-darkmode" onclick="sco.switchDarkMode()"><i class="solitude fas fa-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></div><div class="rightMenu-item" id="menu-translate"><i class="solitude fas fa-language"></i><span>轉為繁體</span></div></div></div><div id="rightmenu-mask"></div></div><div><!-- Critical scripts loaded synchronously--><script src="/js/utils.js?v=3.0.20"></script><script src="/js/main.js?v=3.0.20"></script><!-- Non-critical scripts loaded asynchronously--><script async src="/js/third_party/waterfall.min.js?v=3.0.20"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><!-- Feature-specific scripts loaded asynchronously--><script defer src="https://cdn.jsdelivr.net/npm/typeit@8.8.7/dist/index.umd.min.js"></script><script defer src="/js/tw_cn.js?v=3.0.20"></script><!-- UI enhancement scripts--><script defer src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><script src="https://cdn.jsdelivr.net/npm/swiper@11.0.5/swiper-bundle.min.js"></script><!-- Music player scripts--><script>var meting_api = 'https://meting.qjqq.cn/?server=:server&type=:type&id=:id&auth=:auth&r=:r';</script><script defer src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script><!-- Cover color processing scripts--><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+utils.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+</script><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!-- Search functionality--><!-- Right menu functionality--><script defer src="/js/right_menu.js?v=3.0.20"></script><div class="js-pjax"><script>(() => {
+    const getCount = () => {
+        const ele = document.querySelectorAll('.twikoo-count')
+        if (!ele) return
+        twikoo.getCommentsCount({
+            envId: 'https://twikoo.miaomi.vip',
+            region: '',
+            urls: [window.location.pathname],
+            includeReply: false
+        }).then(res => {
+            ele.forEach(item => item.textContent = res[0].count)
+        }).catch(err => {
+            console.error(err)
+        })
+    }
+    const init = () => {
+        twikoo.init(Object.assign({
+            el: '#twikoo-wrap',
+            envId: 'https://twikoo.miaomi.vip',
+            region: '',
+            path: window.location.pathname,
+            onCommentLoaded: () => {
+                GLOBAL_CONFIG.lightbox && utils.lightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+            }
+        }, null))
+
+        
+        sco.owoBig({
+            body: '.OwO-body',
+            item: '.OwO-items li'
+        })
+
+        true && barrageTwikoo()
+    }
+
+    const loadTwikoo = () => {
+        if (typeof twikoo === 'object') setTimeout(init,0)
+        else utils.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.41/dist/twikoo.all.min.js').then(init)
+    }
+
+    if ('Twikoo' === 'Twikoo' || true) {
+        if (true) utils.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+        else loadTwikoo()
+    } else {
+        window.loadTwoComment = loadTwikoo
+    }
+})()
+</script><script>async function barrageTwikoo() {
+    await fetch("https://twikoo.miaomi.vip", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            event: "COMMENT_GET",
+            accessToken: "",
+            url: window.location.pathname
+        })
+    }).then(async res => {
+        if (!res.ok) throw new Error("HTTP error! status: " + res.status)
+        const data = await res.json();
+        const init = () => {
+            initializeCommentBarrage((data.data).map(item => Object.assign({
+                content: item.comment,
+                nick: item.nick,
+                mailMd5: item.mailMd5,
+                id: item.id
+            })))
+        }
+        if (typeof initializeCommentBarrage === "undefined") await utils.getScript('/js/third_party/barrage.min.js?v=3.0.20').then(init)
+        else init()
+    }).catch(error => console.error("An error occurred while fetching comments: ", error))
+}</script></div></div><!-- pjax--><script>let pjax = null;
+
+function initPjax() {
+    if (typeof Pjax === 'undefined') {
+        console.warn('Pjax is not loaded yet, retrying...');
+        setTimeout(initPjax, 100);
+        return;
+    }
+
+    pjax = new Pjax({
+        elements: 'a:not([target="_blank"])',
+        selectors: ["title","#body-wrap","#site-config","meta[name=\"description\"]",".js-pjax","meta[property^=\"og:\"]","#config-diff",".rs_show",".rs_hide"],
+        cacheBust: false,
+        analytics: false,
+        scrollRestoration: false
+    })
+
+    // 将 pjax 实例挂载到全局
+    window.pjax = pjax;
+
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+        const newScript = document.createElement('script')
+        const content = item.text || item.textContent || item.innerHTML || ""
+        Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+        newScript.appendChild(document.createTextNode(content))
+        item.parentNode.replaceChild(newScript, item)
+    })
+
+    document.addEventListener('pjax:complete', () => {
+        window.refreshFn()
+
+        document.querySelectorAll('script[data-pjax]').forEach(item => {
+            const newScript = document.createElement('script')
+            const content = item.text || item.textContent || item.innerHTML || ""
+            Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+            newScript.appendChild(document.createTextNode(content))
+            item.parentNode.replaceChild(newScript, item)
+        })
+
+        GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+    })
+
+    document.addEventListener('pjax:error', (e) => {
+        if (e.request.status === 404) {
+            pjax.loadUrl('/404.html')
+        }
+    })
+}
+
+// 初始化 Pjax
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPjax);
+} else {
+    initPjax();
+}</script><!-- google adsense--><div><div class="needEndHide" id="nav-music"><div id="nav-music-hoverTips"><i class="music-control-btn fas fa-backward-step" id="music-prev" onclick="sco.musicSkipBack()"></i><i class="music-control-btn fas fa-pause" id="music-pause" onclick="sco.musicToggle()"></i><i class="music-control-btn fas fa-play" id="music-play" onclick="sco.musicToggle()"></i><i class="music-control-btn fas fa-forward-step" id="music-next" onclick="sco.musicSkipForward()"></i></div><meting-js id="7244423285" server="netease" type="playlist" mutex="true" preload="none" theme="var(--efu-main)" data-lrctype="0" order="random" volume="0.8"></meting-js></div></div></body></html>
+        <script>
+            const posts = ["2025/07/13/1.小号（角色创建前期发展思路）/","2025/07/13/2.小号（修山升级装备宠物介绍）/","2025/07/13/3.小号（任务升级宠物强养飞升）/","2025/07/13/4.小号（骑上大荒猛猛升级）/","2025/07/13/5.小号（浮生成就加仓猛扫装备）/","2025/07/13/6.小号（日常升级抽奖初见端倪）/","2025/07/13/8.小号（帮派福利炼魔小号体验）/","2025/07/13/7.小号（枯燥无味日常挂机刷道）/","2025/07/13/本命法宝/","2025/07/13/转生技能/"];
+            function toRandomPost() {
+                const randomPost = posts[Math.floor(Math.random() * posts.length)];
+                pjax.loadUrl(GLOBAL_CONFIG.root + randomPost);
+            }
+        </script>
